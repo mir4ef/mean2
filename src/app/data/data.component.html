@@ -1,0 +1,10 @@
+<p>
+  protected page works!
+</p>
+<h4>and here is some data pulled from a protected endpoint:</h4>
+<div *ngIf='userData'>
+  <p>Name: {{ userData.name }}</p>
+  <p>ID: {{ userData.id }}</p>
+  <p>Username: {{ userData.username }}</p>
+</div>
+<button class='button' type='button' (click)='logout();'>Logout</button>

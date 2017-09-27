@@ -1,0 +1,104 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+server/certs/*
+#!server/certs/.gitkeep
+swagger.json
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+/src/documentation/api/*
+!/src/documentation/api/*.png
+!/src/documentation/api/index.html
+/src/documentation/app
+/src/documentation/css/*
+!/src/documentation/css/homepage.md
+
+!.gitkeep
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+*.iml
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+/nbproject/private/
+
+# IDE - VSCode
+.vscode/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+/.scannerwork
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk

@@ -1,0 +1,21 @@
+{
+  "include": [
+    "server/**/*.js"
+  ],
+  "exclude": [
+    "server/**/*.spec.js",
+    "server/*.js",
+    "server/routes/**/api.js",
+    "server/utils/logger.js",
+    "server/certs/*",
+    "server/jasmine/*"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "cache": true,
+  "all": true,
+  "report-dir": "./coverage/node/",
+  "temp-directory": "./coverage/node/.nyc_output/"
+}

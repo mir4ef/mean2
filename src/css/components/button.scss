@@ -1,0 +1,30 @@
+@import '../variables';
+
+// Button
+//
+// Styles of buttons
+//
+// :hover - Changes the cursor.
+// .warning - Modifier for warnings.
+//
+// Markup:
+// <button class="button {{modifier_class}}">My Button</button>
+//
+// Style guide: components.button
+
+.button {
+  background-color: $button-bg-color-primary;
+  border: 0 none;
+  color: $font-color-light;
+  font-size: 12pt;
+  padding: 7px 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.warning {
+    background-color: $button-bg-color-warning;
+    color: $button-warning-color;
+  }
+}

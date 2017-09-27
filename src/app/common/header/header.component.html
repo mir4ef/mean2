@@ -1,0 +1,15 @@
+<header class='header'>
+  <p>
+    header works!
+  </p>
+  <nav>
+    <a routerLink='home' routerLinkActive='active'>Home</a>
+    <a routerLink='eager' routerLinkActive='active'>Another eager</a>
+    <a routerLink='lazy' routerLinkActive='active'>Lazy</a>
+    <a routerLink='lazy2' routerLinkActive='active'>Lazy with children</a>
+    <a routerLink='protected' routerLinkActive='active'>Protected page</a>
+    <a *ngIf='!isLoggedIn' routerLink='login' routerLinkActive='active'>login</a>
+    <a *ngIf='isLoggedIn' href='javascript:' (click)='logout();' routerLinkActive='active'>logout</a>
+    <!--<a [routerLink]='["/protected"]'>Protected page</a>-->
+  </nav>
+</header>

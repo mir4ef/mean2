@@ -1,0 +1,7 @@
+{
+  "source": [ "./src/app/", "./src/css/" ],
+  "destination": "./src/documentation/css",
+  "title": "(M)EA2N CSS Style Guide",
+  "css": [ "styles.css" ],
+  "homepage": "../documentation/css/homepage.md"
+}

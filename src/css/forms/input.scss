@@ -1,0 +1,40 @@
+@import '../variables';
+
+input {
+
+  // Text Input
+  //
+  // Styles of text input
+  //
+  // :hover - Highlight the text box when hovering.
+  // :focus - Similar to `:hover`, however it should demand more attention
+  // than when an input is simply hovered
+  // :disabled - When disabled, the input's appearance should reflect as such.
+  //
+  // Markup:
+  // <input type="text" class="{{modifier_class}}" value="Text input" />
+  //
+  // Style guide: forms.text
+
+  &[type='text'] {
+    border: 1px solid $border-color;
+    border-radius: 0;
+    box-shadow: inset 1px 1px 1px $shadow-dark;
+    font-size: 12pt;
+    outline: 0;
+    padding: 7px 10px;
+
+    &:hover {
+      border-color: $border-color-dark;
+    }
+
+    &:focus {
+      border: 2px solid $border-color-dark;
+    }
+
+    &:disabled {
+      background-color: $background-color-light;
+      color: $border-color;
+    }
+  }
+}

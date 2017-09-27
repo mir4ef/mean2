@@ -1,0 +1,28 @@
+@import '../variables';
+
+// Label
+//
+// Styles of form labels
+//
+// :hover - Highlight the text box when hovering.
+// .error - State when the associated input entry is wrong
+//
+// Markup:
+// <label type="text" class="label {{modifier_class}}">Label text</label>
+//
+// Style guide: forms.label
+
+.label {
+  font-size: 12pt;
+  outline: 0;
+  padding: 7px 10px;
+
+  &:hover {
+    cursor: pointer;
+    font-style: italic;
+  }
+
+  &.error {
+    color: $error-color;
+  }
+}
