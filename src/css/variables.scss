@@ -12,14 +12,14 @@ $button-bg-color-warning: #ffa500;
 $button-warning-color: #008000;
 
 // breaking points
-$bp-sm-low: 0;
-$bp-sm-high: 480px;
+$bp-sm-min: 0;
+$bp-sm-max: 480px;
 
-$bp-med-low: 481px;
-$bp-med-high: 768px;
+$bp-med-min: 481px;
+$bp-med-max: 768px;
 
-$bp-lg-low: 769px;
-$bp-lg-high: 1200px;
+$bp-lg-min: 769px;
+$bp-lg-max: 1200px;
 
 $bp-key-small: 'sm';
 $bp-key-medium: 'med';
@@ -27,15 +27,15 @@ $bp-key-large: 'lg';
 
 // grid
 $grid-columns: 12;
-$grid-breakpoints-low: (
-  $bp-key-small: $bp-sm-low, // The first breakpoint needs to be 0 to allow elements to position properly below other breakpoints
-  $bp-key-medium: $bp-med-low,
-  $bp-key-large: $bp-lg-low,
+$grid-breakpoints-min: (
+  $bp-key-small: $bp-sm-min, // The first breakpoint needs to be 0 to allow elements to position properly below other breakpoints
+  $bp-key-medium: $bp-med-min,
+  $bp-key-large: $bp-lg-min,
 );
-$grid-breakpoints-high: (
-  $bp-key-small: $bp-sm-high,
-  $bp-key-medium: $bp-med-high,
-  $bp-key-large: $bp-lg-high,
+$grid-breakpoints-max: (
+  $bp-key-small: $bp-sm-max,
+  $bp-key-medium: $bp-med-max,
+  $bp-key-large: $bp-lg-max,
 );
 
 $grid-gutter-width: (

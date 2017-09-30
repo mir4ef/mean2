@@ -1,4 +1,21 @@
-@import 'variables';
+@import '../variables';
+
+// Grid
+//
+// Styles of grid.
+// The column sum per breakpoint needs to add up to 12 in each `row` e.g. "row" -> "grid-col-sm-5" "grid-col-sm-7" <- "/row"
+//
+// .grid-no-gutters - State when the associated input entry is wrong
+// .grid-col-{sm, med, lg}-{1-12} - State when the associated input entry is wrong
+//
+// Markup:
+// <div class="grid-container>
+//   <div class="grid-row">
+//     <div class="{{modifier_class}}">grid-col-{sm, med, lg}-{1-12}</div>
+//   </div>
+// </div>
+//
+// Style guide: grid
 
 // Grid container
 .grid-container {
@@ -28,7 +45,7 @@
 // mixin to generate the grid columns in all sizes and the
 // corresponding offset and order classes for a particular breakpoint
 @mixin make-grid-column($breakpoint) {
-  @media screen and (min-width: map-get($grid-breakpoints-low, $breakpoint)) {
+  @media screen and (min-width: map-get($grid-breakpoints-min, $breakpoint)) {
     .grid-container {
       padding-left: map-get($grid-gutter-width, $breakpoint);
       padding-right: map-get($grid-gutter-width, $breakpoint);
@@ -69,7 +86,7 @@
     width: 100%;
   }
 
-  @each $breakpoint in map-keys($grid-breakpoints-low) {
+  @each $breakpoint in map-keys($grid-breakpoints-min) {
     @for $i from 1 through $grid-columns {
       .grid-col-#{$breakpoint}-#{$i} {
         @extend %grid-column;
