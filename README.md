@@ -1,8 +1,14 @@
 # (M)EAN Stack with Angular 2+ Starter
 
+[![Known Vulnerabilities](https://snyk.io/test/github/mir4ef/mean2/badge.svg)](https://snyk.io/test/github/mir4ef/mean2)
+[![dependencies Status](https://david-dm.org/mir4ef/mean2/status.svg)](https://david-dm.org/mir4ef/mean2)
+[![devDependencies Status](https://david-dm.org/mir4ef/mean2/dev-status.svg)](https://david-dm.org/mir4ef/mean2?type=dev)
+[![GitHub version](https://badge.fury.io/gh/mir4ef%2Fmean2.svg)](https://badge.fury.io/gh/mir4ef%2Fmean2)
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+
 This is a starting point for (M)EAN stack applications (with Angular 2+). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
-_This projet is similar to [mea2n](https://github.com/mir4ef/mea2n), but is with `scss` rather than `less`_
+_This project is similar to [mea2n](https://github.com/mir4ef/mea2n), but is with `scss` rather than `less`_
 
 ## TL;DR
 
@@ -210,6 +216,7 @@ Run `npm run lint` to lint your code. It will scan the CSS (`SCSS`), the TypeScr
  - The project is setup with `@types/jasmine` v2.5.46+, which is a bit more strict, because `any` was replaced with an expected type (`Expected<T>`). If you are encountering problems, please downgrade to v2.4.45 ([more info](https://github.com/angular/angularfire2/issues/875))
  - The project is setup to use `ChromeHeadless` to execute the unit tests. You need to have Chrome v60+ installed to be able to use it.
  - There are no CSS libraries (e.g. Boostrap, Material, etc.) to give freedom to add any external styling library based on project needs.
+ - There are badges at the top of the `README.md` file (this file) for a few metrics like vulnerabilities, dependency version status, etc. Please feel free to add/remove any or all of the badges to suit your needs.
 
 <a name="package-scripts"></a>
 ## Available Scripts
