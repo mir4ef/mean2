@@ -138,6 +138,13 @@
     "directive-class-suffix": true,
     "no-access-missing-member": true,
     "templates-use-public": true,
-    "invoke-injectable": true
+    "invoke-injectable": true,
+    "no-implicit-dependencies": [
+      true,
+      "dev"
+    ],
+    "no-return-await": true,
+    "no-duplicate-switch-case": true,
+    "no-parameter-reassignment": true
   }
 }

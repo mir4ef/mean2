@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
@@ -12,7 +12,7 @@ import { LoadingIndicatorService } from '../common/loading-indicator/loading-ind
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   public user = {
     username: '',
@@ -24,7 +24,10 @@ export class LoginComponent implements OnDestroy {
     private router: Router,
     private authService: AuthService,
     private loadingIndicator: LoadingIndicatorService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    this.loadingIndicator.setIndicatorState(false);
     this.authService.updateLoggedInState();
   }
 

@@ -73,13 +73,13 @@ describe('CoreHttpService', () => {
       spyOn(router, 'navigate');
       tokenService.token = '';
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
-        actualRes = error.error;
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
+        console.log('error:', error);
 
         expect(error.status).toBe(403);
         expect(actualRes.message).toEqual(res.message);
         expect(actualRes.success).toBeFalsy();
-        expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledTimes(1);
         expect(router.navigate).toHaveBeenCalledWith([ '/login' ]);
       });
@@ -100,8 +100,8 @@ describe('CoreHttpService', () => {
       };
       let actualRes: IResponse;
 
-      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: HttpErrorResponse): void => {
-        actualRes = error.error;
+      service.apiGet({ path: 'endpoint' }).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(500);
         expect(actualRes.message).toEqual(res.message);

@@ -1,5 +1,4 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -39,7 +38,7 @@ describe('DataService', () => {
       const res: IResponse = { success: true, message: { id, name: 'Name', username: 'first.last' }};
       let actualRes: IResponse;
 
-      service.getUser(id).subscribe((data: IResponse) => {
+      service.getUser(id).subscribe((data: IResponse): void => {
         actualRes = data;
       });
 
@@ -60,8 +59,8 @@ describe('DataService', () => {
       };
       let actualRes: IResponse;
 
-      service.getUser(id).subscribe(null, (error: HttpErrorResponse) => {
-        actualRes = error.error;
+      service.getUser(id).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(404);
         expect(actualRes).toEqual(res);
@@ -83,8 +82,8 @@ describe('DataService', () => {
       };
       let actualRes: IResponse;
 
-      service.getUser(id).subscribe(null, (error: HttpErrorResponse) => {
-        actualRes = error.error;
+      service.getUser(id).subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(500);
         expect(actualRes).toEqual(res);

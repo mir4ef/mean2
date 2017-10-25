@@ -1,5 +1,4 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -56,8 +55,8 @@ describe('LazyService', () => {
       };
       let actualRes: IResponse;
 
-      service.getData().subscribe(null, (error: HttpErrorResponse): void => {
-        actualRes = error.error;
+      service.getData().subscribe(null, (error: IResponse): void => {
+        actualRes = error;
 
         expect(error.status).toBe(500);
         expect(actualRes.message).toEqual(res.message);

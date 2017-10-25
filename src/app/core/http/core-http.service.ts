@@ -37,6 +37,7 @@ export interface IResponse {
   success: boolean;
   message: any;
   token?: string;
+  status?: number;
 }
 
 @Injectable()
@@ -52,9 +53,9 @@ export class CoreHttpService {
   /**
    * @description Handles HTTP GET requests
    * @param {IRequestOptions} request - The request object containing the data for the request
-   * @returns {Observable<Response>}
+   * @returns {Observable<IResponse | HttpErrorResponse>}
    */
-  public apiGet(request: IRequestOptions<{}>): Observable<IResponse> {
+  public apiGet(request: IRequestOptions<{}>): Observable<IResponse | HttpErrorResponse> {
     return this.http
       .get<IResponse>(
         this.buildURL(request),
@@ -69,9 +70,9 @@ export class CoreHttpService {
   /**
    * @description Handles HTTP POST requests
    * @param {IRequestOptions} request - The request object containing the data for the request
-   * @returns {Observable<IResponse>}
+   * @returns {Observable<IResponse | HttpErrorResponse>}
    */
-  public apiPost(request: IRequestOptions<{}>): Observable<IResponse> {
+  public apiPost(request: IRequestOptions<{}>): Observable<IResponse | HttpErrorResponse> {
     return this.http
       .post<IResponse>(
         this.buildURL(request),
@@ -87,21 +88,26 @@ export class CoreHttpService {
   /**
    * @description Handle response errors
    * @param {HttpErrorResponse} err - The error response
-   * @returns {Promise<never>}
+   * @returns {Observable<IResponse | HttpErrorResponse>}
    */
-  private handleError = (err: HttpErrorResponse): Promise<never> => {
+  private handleError = (err: HttpErrorResponse): Observable<IResponse | HttpErrorResponse> => {
     if (err.status === 403) {
       this.tokenService.token = '';
       this.router.navigate([ '/login' ]);
     }
 
     // The backend returned an unsuccessful response code
-    if (typeof err.error === 'string') {
-      return Promise.reject(JSON.parse(err.error));
+    if (err.error.message) {
+      // add the http status code to the response if it is not the
+      if (!err.error.status) {
+        err.error.status = err.status;
+      }
+
+      return Observable.throw(err.error);
     }
 
     // A client-side or network error occurred
-    return Promise.reject(err);
+    return Observable.throw(err);
   }
 
   /**

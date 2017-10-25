@@ -14,6 +14,7 @@ const morgan = require('morgan');
 const spdy = require('spdy');
 const config = require('./server/config');
 const errors = require('./server/utils/errors');
+const redirect = require('./server/utils/redirect.http');
 const logger = require('./server/utils/logger').logger;
 const apiRoutesV1 = require('./server/routes/v1/api').apiRoutes(app, express);
 const options = {
@@ -73,6 +74,11 @@ app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }));
 // for parsing application/json
 app.use(bodyParser.json({ limit: '2mb' }));
 
+// redirect all non-secure (http) traffic to https on production
+if (config.env === 'production') {
+  app.use(redirect.redirectToHTTPS);
+}
+
 // handle CORS requests
 app.use(cors({
   origin: config.allowCORS,
@@ -107,4 +113,10 @@ app.get('*', (req, res) => {
 spdy.createServer(options, app).listen(config.port, () => {
   logger('info', `The server has been started on port ${config.port}`);
   logger('info', `The environment is ${config.env}`);
+});
+
+// start the non-secure server to accept http traffic and redirect it to https
+app.listen(config.httpPort, () => {
+  logger('info', `HTTP server has been started on port ${config.httpPort}`);
+  logger('info', `HTTP environment is ${config.env}`);
 });

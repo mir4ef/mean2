@@ -15,14 +15,15 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string | null = this.tokenService.token;
+    let request: HttpRequest<any> = req;
 
     // add the token to the call if present and no token was passed with the headers already
     if (token && !req.headers.has('x-access-token')) {
-      const authHeader: HttpRequest<any> = req.clone({ setHeaders: { 'x-access-token': token }});
+      const authHeader: HttpRequest<any> = request.clone({ setHeaders: { 'x-access-token': token }});
 
-      req = authHeader;
+      request = authHeader;
     }
 
-    return next.handle(req);
+    return next.handle(request);
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { CoreHttpService, IResponse } from '../core/http/core-http.service';
@@ -10,7 +11,7 @@ export class LazyService {
 
   // example with Observable
   // for an example with Promise, view lazy2 component/service
-  getData(): Observable<IResponse> {
+  getData(): Observable<IResponse | HttpErrorResponse> {
     return this.httpService.apiGet({ path: 'sampleData' });
   }
 }
