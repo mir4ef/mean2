@@ -75,7 +75,6 @@ describe('CoreHttpService', () => {
 
       service.apiGet({ path: 'endpoint' }).subscribe(null, (error: IResponse): void => {
         actualRes = error;
-        console.log('error:', error);
 
         expect(error.status).toBe(403);
         expect(actualRes.message).toEqual(res.message);
