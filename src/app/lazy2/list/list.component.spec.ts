@@ -1,7 +1,14 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+
+import { CoreHttpService } from '../../core/http/core-http.service';
+import { TokenService } from '../../core/auth/token.service';
+import { LoadingIndicatorService } from '../../common/loading-indicator/loading-indicator.service';
 import { IEntry, Lazy2Service } from '../lazy2.service';
 
 import { ListComponent } from './list.component';
@@ -10,9 +17,17 @@ describe('ListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [ ListComponent ],
-      providers: [ Lazy2Service ]
+      providers: [
+        CoreHttpService,
+        TokenService,
+        LoadingIndicatorService,
+        Lazy2Service
+      ]
     })
     .compileComponents();
   }));
@@ -28,7 +43,7 @@ describe('ListComponent', () => {
 
   it('should get a list of entries by calling getEntries promise', async(
     inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
-      const sampleEntries: IEntry[] = [
+      const sampleEntries: Array<IEntry> = [
         {
           id: 123,
           name: 'Entry 1'
@@ -38,17 +53,17 @@ describe('ListComponent', () => {
           name: 'Entry 2'
         }
       ];
-      const len = sampleEntries.length;
+      const len: number = sampleEntries.length;
       const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
       const component: ListComponent = fixture.componentInstance;
 
       component.errorMsg = '';
 
-      spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.resolve({ message: sampleEntries }));
+      spyOn(lazy2Service, 'getData').and.returnValue(Observable.of({ message: sampleEntries }));
 
       fixture.detectChanges();
 
-      expect(lazy2Service.getEntries).toHaveBeenCalled();
+      expect(lazy2Service.getData).toHaveBeenCalled();
 
       fixture.whenStable().then(() => {
         expect(component.entries).toEqual(sampleEntries);
@@ -61,18 +76,18 @@ describe('ListComponent', () => {
   ));
 
   it('should get a server error', async(
-    inject([Lazy2Service], (lazy2Service: Lazy2Service) => {
+    inject([ Lazy2Service ], (lazy2Service: Lazy2Service) => {
       const response = 'an error occurred.';
       const fixture: ComponentFixture<ListComponent> = TestBed.createComponent(ListComponent);
       const component: ListComponent = fixture.componentInstance;
 
       component.errorMsg = '';
 
-      spyOn(lazy2Service, 'getEntries').and.returnValue(Promise.reject({ message: response }));
+      spyOn(lazy2Service, 'getData').and.returnValue(Observable.throw({ message: response }));
 
       fixture.detectChanges();
 
-      expect(lazy2Service.getEntries).toHaveBeenCalled();
+      expect(lazy2Service.getData).toHaveBeenCalled();
 
       fixture.whenStable().then(() => {
         expect(component.entries).toBeUndefined();

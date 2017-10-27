@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -76,9 +77,9 @@ export class AuthService {
 
   /**
    * @description Get the user info from the token
-   * @return {Observable<IResponse>} User details response
+   * @return {Observable<IResponse | HttpErrorResponse>} User details response
    */
-  public getUser(): Observable<{}> {
+  public getUser(): Observable<IResponse | HttpErrorResponse> {
     return this.http.apiGet({ path: 'me' });
   }
 }

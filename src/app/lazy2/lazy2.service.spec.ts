@@ -1,15 +1,24 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { IResponse } from '../core/http/core-http.service';
+import { CoreHttpService, IResponse } from '../core/http/core-http.service';
+import { TokenService } from '../core/auth/token.service';
 
 import { Lazy2Service } from './lazy2.service';
 
 describe('Lazy2Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ Lazy2Service ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      providers: [
+        CoreHttpService,
+        TokenService,
+        Lazy2Service
+      ]
     });
   });
 
@@ -17,12 +26,12 @@ describe('Lazy2Service', () => {
     httpMock.verify();
   }));
 
-  it('should exist', inject([Lazy2Service], (service: Lazy2Service) => {
+  it('should exist', inject([ Lazy2Service ], (service: Lazy2Service) => {
     expect(service).toBeTruthy();
   }));
 
   it('should return a list of entries',
-    inject([Lazy2Service, HttpTestingController], (service: Lazy2Service, httpMock: HttpTestingController) => {
+    inject([ Lazy2Service, HttpTestingController ], (service: Lazy2Service, httpMock: HttpTestingController) => {
       const res: IResponse = {
         success : true,
         message: [
@@ -30,9 +39,10 @@ describe('Lazy2Service', () => {
           { id: 456, name: 'Entry 2' }
         ]
       };
+      let actualRes: IResponse;
 
-      service.getEntries().then((data: IResponse): void => {
-        expect(data).toEqual(res);
+      service.getData().subscribe((data: IResponse): void => {
+        actualRes = data;
       });
 
       const req: TestRequest = httpMock.expectOne('/api/v1/sampleEntries');
@@ -40,5 +50,6 @@ describe('Lazy2Service', () => {
       req.flush(res);
 
       expect(req.request.method).toEqual('GET');
+      expect(actualRes).toEqual(res);
   }));
 });

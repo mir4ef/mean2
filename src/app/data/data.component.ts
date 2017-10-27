@@ -18,7 +18,7 @@ interface IUserData {
 
 @Component({
   templateUrl: './data.component.html',
-  styleUrls: [ './data.component.scss']
+  styleUrls: [ './data.component.scss' ]
 })
 export class DataComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -44,7 +44,7 @@ export class DataComponent implements OnInit, OnDestroy {
           this.loadingIndicator.setIndicatorState(false);
           this.userData = data.message;
         },
-        (err: HttpErrorResponse): void => {
+        (err: IResponse | HttpErrorResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.errMsg = err.message;
         }
@@ -53,7 +53,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.dataService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate([ '/login' ]);
   }
 
   ngOnDestroy(): void {

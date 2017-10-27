@@ -6,11 +6,12 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
 import { AuthService } from '../core/auth/auth.service';
+import { IResponse } from '../core/http/core-http.service';
 import { LoadingIndicatorService } from '../common/loading-indicator/loading-indicator.service';
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: [ './login.component.scss' ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loadingIndicator.setIndicatorState(false);
           this.router.navigate([this.authService.requestedURL]);
         },
-        (err: HttpErrorResponse): void => {
+        (err: IResponse | HttpErrorResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
           this.errMsg = err.message;
         }

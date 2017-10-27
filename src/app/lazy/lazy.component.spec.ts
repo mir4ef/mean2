@@ -74,7 +74,7 @@ describe('LazyComponent', () => {
 
       component.err = '';
 
-      spyOn(lazyService, 'getData').and.returnValue(Observable.throw(response));
+      spyOn(lazyService, 'getData').and.returnValue(Observable.throw({ message: response }));
 
       fixture.detectChanges();
 

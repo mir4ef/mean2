@@ -2,11 +2,14 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { CoreHttpService } from '../../core/http/core-http.service';
+import { TokenService } from '../../core/auth/token.service';
 import { SharedModule } from '../../shared/shared.module';
 
 import { Lazy2Module } from '../lazy2.module';
-import { DetailComponent } from './detail.component';
 import { IEntry, Lazy2Service } from '../lazy2.service';
+
+import { DetailComponent } from './detail.component';
 
 describe('DetailComponent', () => {
 
@@ -17,6 +20,10 @@ describe('DetailComponent', () => {
         SharedModule,
         Lazy2Module,
         RouterTestingModule
+      ],
+      providers: [
+        CoreHttpService,
+        TokenService
       ]
     })
     .compileComponents();

@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: [ './header.component.scss' ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();

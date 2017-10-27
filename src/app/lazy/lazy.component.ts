@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
 
+import { IResponse } from '../core/http/core-http.service';
 import { LoadingIndicatorService } from '../common/loading-indicator/loading-indicator.service';
 import { fade } from '../shared/animations';
 
@@ -31,20 +33,17 @@ export class LazyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // show the loading indicator
     this.loaderIndicator.setIndicatorState(true);
-
-    // example with Observable
-    // for an example with Promise, view lazy2 component/service
     this.dataService
       .getData()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        data => {
+        (data: IResponse): void => {
           this.loaderIndicator.setIndicatorState(false);
           this.data = data.message;
         },
-        err => {
+        (err: IResponse | HttpErrorResponse): void => {
           this.loaderIndicator.setIndicatorState(false);
-          this.err = err;
+          this.err = err.message;
         }
       );
   }

@@ -9,9 +9,7 @@ export class LazyService {
 
   constructor(private httpService: CoreHttpService) { }
 
-  // example with Observable
-  // for an example with Promise, view lazy2 component/service
-  getData(): Observable<IResponse | HttpErrorResponse> {
+  public getData(): Observable<IResponse | HttpErrorResponse> {
     return this.httpService.apiGet({ path: 'sampleData' });
   }
 }

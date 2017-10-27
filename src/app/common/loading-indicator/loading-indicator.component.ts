@@ -8,7 +8,7 @@ import { LoadingIndicatorService } from './loading-indicator.service';
 @Component({
   selector: 'app-spinner',
   templateUrl: './loading-indicator.component.html',
-  styleUrls: ['./loading-indicator.component.scss']
+  styleUrls: [ './loading-indicator.component.scss' ]
 })
 export class LoadingIndicatorComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
