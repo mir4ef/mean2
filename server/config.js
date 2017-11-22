@@ -2,7 +2,7 @@
 
 /* eslint no-process-env: ["off"] */
 
-module.exports = {
+const config = {
   'port': process.env.PORT || 8080,
   'httpPort': process.env.HTTP_PORT || 8081,
   'env': process.env.NODE_ENV || 'development',
@@ -16,5 +16,8 @@ module.exports = {
   'dburl': process.env.DBURL,
   'dbport': process.env.DBPORT,
   'dbuser': process.env.DBUSER,
-  'dbpass': process.env.DBPASS
+  'dbpass': process.env.DBPASS,
+  'dbname': process.env.DBNAME
 };
+
+exports.config = config;

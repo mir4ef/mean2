@@ -31,4 +31,4 @@ const def = {
   }
 };
 
-module.exports = def;
+exports.def = def;

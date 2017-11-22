@@ -6,7 +6,7 @@
 [![GitHub version](https://badge.fury.io/gh/mir4ef%2Fmean2.svg)](https://badge.fury.io/gh/mir4ef%2Fmean2)
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
-This is a starting point for (M)EAN stack applications (with Angular 2+). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
+This is a starting point for (M)EAN stack applications (with Angular 2+, _currently 5.0.x_). MongoDB drivers are not setup as part of this boilerplate, but can easily be added (with `mongoose` or some other package). The idea is to have a setup to get you up and running quickly and to be database agnostic. You can easily add a database driver that fits your needs.
 
 _This project is similar to [mea2n](https://github.com/mir4ef/mea2n), but is with `scss` rather than `less`_
 
@@ -25,7 +25,7 @@ Run the app:
 1. Start the server with*:
 
     ```bash
-    NODE_ENV="development" SECRET="supersecret" CERTPHRASE="your.cert.password" node server.js
+    NODE_ENV="development" SECRET="your.super.secret" CERTPHRASE="your.cert.password" node server.js
     ```
     
     *If you didn't setup a certificate password, you can omit `CERTPHRASE`.
@@ -57,7 +57,7 @@ Run the app:
 
 <a name="what-it-has"></a>
 ## What it has
-- Angular (v5.0.x)
+- Angular (v5.0.x) and Angular CLI 1.5.x
 - NodeJS (+ExpressJS)
 - JWT-based authentication (naive, but can be modified and scaled to fit your needs)
 - HTTP/2 (thru [spdy](https://github.com/spdy-http2/node-spdy))
@@ -68,6 +68,7 @@ Run the app:
 - `SCSS` as a style preprocessor
 - git `pre-commit` and `pre-push` hooks (for more info see [Notes](#notes) below)
 - secured with [helmet](https://helmetjs.github.io) and [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) (for more info see [Node Server](#node-server) below)
+- additional security checks thru the [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security) plugin and the [nsp](https://www.npmjs.com/package/nsp) package, which checks your dependencies for known vulnerabilities
 - lazy loading of modules with selective preloading strategy to allow you to preload any module you or your app will need (for more info see [Notes](#notes) below) 
 - taking advantage of the new `HttpClientModule` and `HttpInterceptor` introduced in Angular 4.3.x (for more info see [Notes](#notes) below)
 - analyze the application bundle with [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) (for more info see [Notes](#notes) below)
@@ -128,15 +129,16 @@ To run the application with the node server during local development and build/c
     | `NODE_ENV`       | `string`            | the server environment                                                                                               | `development` |
     | `CERTPHRASE`     | `string`            | the certificate password if there is one                                                                             | `undefined`   |
     | `SECRET`         | `string`            | the secret to encode/decode the generated token                                                                      | `undefined`   |
-    | `APP_DEBUG`      | `"true"` (`string`) | prints verbose output in the console                                                                                 | `false`       |
+    | `APP_DEBUG`      | `string`            | prints verbose output in the console                                                                                 | `false`       |
     | `MAX_REQUESTS`   | `integer`           | how many requests are allowed per window from a single IP address before it is blocked                               | `300`         |
     | `WINDOW_MINUTES` | `integer`           | how many minutes should the requests window be                                                                       | `30`          |
-    | `TRUST_PROXY`    | `"true"` (`string`) | set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter) | `false`       |
-    | `ALLOW_CORS`     | `"true"` (`string`) | set to `true` if you want to allow `Cross Origin` requests to the server                                             | `false`       |
+    | `TRUST_PROXY`    | `string`            | set to `true` if the server will be running behind a load balancer or reverse proxy (important for the rate limiter) | `false`       |
+    | `ALLOW_CORS`     | `string`            | set to `true` if you want to allow `Cross Origin` requests to the server                                             | `false`       |
     | `DBURL`          | `string`            | the database url/host                                                                                                | `undefined`   |
     | `DBPORT`         | `string`            | the database port                                                                                                    | `undefined`   |
     | `DBUSER`         | `string`            | the database username                                                                                                | `undefined`   |
     | `DBPASS`         | `string`            | the database password associated with the username specified for `DBUSER`                                            | `undefined`   |
+    | `DBNAME`         | `string`            | the database name that you will be connecting to                                                                     | `undefined`   |
 
 
 **Note 1**: You need to build the application before trying to open it in a browser. To do so you can run `npm run build`. 

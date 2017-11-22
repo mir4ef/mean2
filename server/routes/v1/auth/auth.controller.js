@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const config = require('../../../config');
+const config = require('../../../config').config;
 const logger = require('../../../utils/logger').logger;
 const user = {
   id: 123,

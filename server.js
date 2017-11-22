@@ -12,13 +12,15 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const spdy = require('spdy');
-const config = require('./server/config');
+const config = require('./server/config').config;
 const errors = require('./server/utils/errors');
 const redirect = require('./server/utils/redirect.http');
 const logger = require('./server/utils/logger').logger;
 const apiRoutesV1 = require('./server/routes/v1/api').apiRoutes(app, express);
 const options = {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
   key: fs.readFileSync(`server/certs/ng2-${config.env}.key`),
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
   cert: fs.readFileSync(`server/certs/ng2-${config.env}.pem`),
   passphrase: config.certphrase,
   secureOptions: crypto.constants.SSL_OP_NO_TLSv1
