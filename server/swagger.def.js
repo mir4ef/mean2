@@ -31,4 +31,7 @@ const def = {
   }
 };
 
-exports.def = def;
+// this configuration settings must be exported with `module.exports` so swagger
+// can generate the documentation
+// eslint-disable-next-line node/exports-style
+module.exports = def;
