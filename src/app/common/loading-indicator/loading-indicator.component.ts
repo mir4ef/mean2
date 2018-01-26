@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
-import 'rxjs/add/operator/takeUntil';
+import { takeUntil } from 'rxjs/operators';
 
 import { LoadingIndicatorService } from './loading-indicator.service';
 
@@ -18,7 +17,7 @@ export class LoadingIndicatorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loaderIndicator.getIndicatorState()
-      .takeUntil(this.ngUnsubscribe)
+      .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(
         (state: boolean): boolean => this.isLoading = state,
         (err): boolean => this.isLoading = false

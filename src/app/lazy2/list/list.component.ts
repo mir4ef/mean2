@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-
-import 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 
 import { IResponse } from '../../core/http/core-http.service';
 import { LoadingIndicatorService } from '../../common/loading-indicator/loading-indicator.service';
@@ -23,7 +22,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.loaderIndicator.setIndicatorState(true);
     this.entryService.getData()
-      .take(1)
+      .pipe(take(1))
       .subscribe(
       (res: IResponse): void => {
         this.loaderIndicator.setIndicatorState(false);

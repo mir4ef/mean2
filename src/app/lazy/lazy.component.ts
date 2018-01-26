@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
-
-import 'rxjs/add/operator/takeUntil';
+import { take } from 'rxjs/operators';
 
 import { IResponse } from '../core/http/core-http.service';
 import { LoadingIndicatorService } from '../common/loading-indicator/loading-indicator.service';
@@ -22,9 +20,7 @@ interface IData {
   animations: [ fade('2s', .3, .95) ]
 })
 
-export class LazyComponent implements OnInit, OnDestroy {
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+export class LazyComponent implements OnInit {
   public data: IData;
   public err: string;
 
@@ -35,7 +31,7 @@ export class LazyComponent implements OnInit, OnDestroy {
     this.loaderIndicator.setIndicatorState(true);
     this.dataService
       .getData()
-      .takeUntil(this.ngUnsubscribe)
+      .pipe(take(1))
       .subscribe(
         (data: IResponse): void => {
           this.loaderIndicator.setIndicatorState(false);
@@ -46,10 +42,5 @@ export class LazyComponent implements OnInit, OnDestroy {
           this.err = err.message;
         }
       );
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }

@@ -7,10 +7,7 @@ import {
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { catchError } from 'rxjs/operators';
 
 import { TokenService } from '../auth/token.service';
 
@@ -65,7 +62,7 @@ export class CoreHttpService {
           params: this.setQueryParams(request.params)
         }
       )
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   /**
@@ -83,7 +80,7 @@ export class CoreHttpService {
           params: this.setQueryParams(request.params)
         }
       )
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   /**

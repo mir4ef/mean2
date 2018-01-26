@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 import { CoreHttpService, IResponse } from '../core/http/core-http.service';
 
@@ -24,7 +25,7 @@ export class Lazy2Service {
   public getData(): Observable<IResponse | HttpErrorResponse> {
     return this.httpService
       .apiGet({ path: 'sampleEntries' })
-      .map(this.handleResponse);
+      .pipe(map(this.handleResponse));
   }
 
   // ideally this should be a call to an API endpoint (please see ./server/api/routes/v1/sampleEntries.js - this file contains an API endpoint, which returns only one entry)

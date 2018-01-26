@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-
-import 'rxjs/add/operator/takeUntil';
+import { take } from 'rxjs/operators';
 
 import { LoadingIndicatorService } from '../common/loading-indicator/loading-indicator.service';
 import { IResponse } from '../core/http/core-http.service';
@@ -20,9 +18,7 @@ interface IUserData {
   templateUrl: './data.component.html',
   styleUrls: [ './data.component.scss' ]
 })
-export class DataComponent implements OnInit, OnDestroy {
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+export class DataComponent implements OnInit {
   public userData: IUserData;
   public errMsg: string;
 
@@ -38,7 +34,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
     // get the data from the service
     this.dataService.getUser(123)
-      .takeUntil(this.ngUnsubscribe)
+      .pipe(take(1))
       .subscribe(
         (data: IResponse): void => {
           this.loadingIndicator.setIndicatorState(false);
@@ -54,10 +50,5 @@ export class DataComponent implements OnInit, OnDestroy {
   public logout(): void {
     this.dataService.logout();
     this.router.navigate([ '/login' ]);
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }

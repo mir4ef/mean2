@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-
-import 'rxjs/add/operator/takeUntil';
+import { take } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
 import { IResponse } from '../core/http/core-http.service';
@@ -13,8 +11,7 @@ import { LoadingIndicatorService } from '../common/loading-indicator/loading-ind
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.scss' ]
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
+export class LoginComponent implements OnInit {
   public user = {
     username: '',
     password: ''
@@ -39,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // login the user
     this.authService
       .login(this.user)
-      .takeUntil(this.ngUnsubscribe)
+      .pipe(take(1))
       .subscribe(
         (): void => {
           this.loadingIndicator.setIndicatorState(false);
@@ -50,10 +47,5 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.errMsg = err.message;
         }
       );
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }

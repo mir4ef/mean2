@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map } from 'rxjs/operators';
 
 import { CoreHttpService, IResponse } from '../http/core-http.service';
 import { TokenService } from './token.service';
@@ -35,12 +36,14 @@ export class AuthService {
       path: 'auth'
     };
 
-    return this.http.apiPost(opt).map((data: IResponse): IResponse => {
-      this.tokenService.token = data.token;
-      this.updateLoggedInState();
+    return this.http.apiPost(opt).pipe(
+      map((data: IResponse): IResponse => {
+        this.tokenService.token = data.token;
+        this.updateLoggedInState();
 
-      return data;
-    });
+        return data;
+      })
+    );
   }
 
   /**
